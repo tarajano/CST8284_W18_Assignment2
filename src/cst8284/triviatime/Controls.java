@@ -83,7 +83,7 @@ public class Controls {
     mnuItm.setOnAction((ActionEvent e) -> {
       Stage pStage = getStage(); 
       bp = (BorderPane) pStage.getScene().getRoot();
-      setQAArray();
+      setQAArrayList(absPath);
       resetGame();
       setNxtPane();
     });
@@ -182,14 +182,13 @@ public class Controls {
   }
   
   // To load QA objects from file
-	private static ArrayList<QA> getQAArrayFromTriviaFile() {
-    FileUtils.setQAArray(getAbsPath());
+	private static ArrayList<QA> getQAArrayListFromTriviaFile(String path) {
+    FileUtils.setQAArray(path);
     return FileUtils.getQAArray();
 	}
 
-	private static String getAbsPath() {return absPath;}
   public static int getNumOfQuestions() {return qaArrayList.size();}
-  private static void setQAArray() {qaArrayList = getQAArrayFromTriviaFile();}
+  private static void setQAArrayList(String path) {qaArrayList = getQAArrayListFromTriviaFile(path);}
   public static int getCurrentQuestionNumber() {return currentQuestion;}
   private static int incrementQuestionNumber() {return currentQuestion+=1;}
 

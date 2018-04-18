@@ -1,5 +1,6 @@
 package cst8284.triviatime;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,7 +18,9 @@ public class FileUtils {
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				while(qaArrayList.add((QA) ois.readObject()));
 				ois.close();
-			} catch (IOException | ClassNotFoundException e) {} 
+			}
+			catch (EOFException e) {}
+			catch (IOException | ClassNotFoundException e) {} 
 		}
 		else
 			qaArrayList = null;
