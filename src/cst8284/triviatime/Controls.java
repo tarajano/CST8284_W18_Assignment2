@@ -33,7 +33,6 @@ public class Controls {
 	
 	private static String absPath = "/Dropbox/Dropbox/eclipse-workspace/CST8284_W18_Assignment1/src/cst8284/triviatime/triviaQAFiles/ComputerTrivia_Java100.trivia";
 	//private static String absPath = "C:/TriviaTime/ComputerTrivia_Java100.trivia";
-  private static int numObjects = 7;
   
 	/***************** MenuBar *****************/
  
@@ -184,13 +183,12 @@ public class Controls {
   
   // To load QA objects from file
 	private static ArrayList<QA> getQAArrayFromTriviaFile() {
-    FileUtils.setQAArray(getAbsPath(), getNumObjects());
+    FileUtils.setQAArray(getAbsPath());
     return FileUtils.getQAArray();
 	}
 
 	private static String getAbsPath() {return absPath;}
-	private static int getNumObjects() {return numObjects;}
-  public static int getNumOfQuestions() {return getNumObjects();}
+  public static int getNumOfQuestions() {return qaArrayList.size();}
   private static void setQAArray() {qaArrayList = getQAArrayFromTriviaFile();}
   public static int getCurrentQuestionNumber() {return currentQuestion;}
   private static int incrementQuestionNumber() {return currentQuestion+=1;}

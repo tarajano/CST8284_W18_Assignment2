@@ -10,7 +10,7 @@ public class FileUtils {
 	
 	private static ArrayList<QA> qaArrayList = new ArrayList<>();
 		
-	public static void setQAArray(String absPath, int numObjects) {
+	public static void setQAArray(String absPath) {
 		if (fileExists(absPath)) {
 			try {
 				FileInputStream fis = new FileInputStream(absPath);
