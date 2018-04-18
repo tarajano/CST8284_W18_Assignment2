@@ -31,8 +31,10 @@ public class Controls {
 	private static BorderPane bp;
 	private static QAPane qaPane;
 	
-	private static String absPath = "/Dropbox/Dropbox/eclipse-workspace/CST8284_W18_Assignment1/src/cst8284/triviatime/triviaQAFiles/ComputerTrivia_Java100.trivia";
-	//private static String absPath = "C:/TriviaTime/ComputerTrivia_Java100.trivia";
+//	private static String fileName = "ComputerTrivia_Java100.trivia";
+//	private static String winFolderPath = "C:/TriviaTime/";
+	private static String unixFolderPath = "/Dropbox/Dropbox/eclipse-workspace/CST8284_W18_Assignment1/src/cst8284/triviatime/triviaQAFiles/";
+	private static String absPath = unixFolderPath; // TODO modify for submission 
   
 	/***************** MenuBar *****************/
  
@@ -183,7 +185,7 @@ public class Controls {
   
   // To load QA objects from file
 	private static ArrayList<QA> getQAArrayListFromTriviaFile(String path) {
-    FileUtils.setQAArray(path);
+    FileUtils.setQAArrayList(getStage(), path);
     return FileUtils.getQAArray();
 	}
 
