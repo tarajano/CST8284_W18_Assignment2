@@ -4,27 +4,26 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class FileUtils {
 	
-	private static QA[] qaAr;
+	private static ArrayList<QA> qaArrayList = new ArrayList<>();
 		
 	public static void setQAArray(String absPath, int numObjects) {
-		qaAr = new QA[numObjects];
 		if (fileExists(absPath)) {
 			try {
 				FileInputStream fis = new FileInputStream(absPath);
 				ObjectInputStream ois = new ObjectInputStream(fis);
-				for (int i = 0; i < numObjects; i++)
-					qaAr[i] = (QA) (ois.readObject());
+				while(qaArrayList.add((QA) ois.readObject()));
 				ois.close();
 			} catch (IOException | ClassNotFoundException e) {} 
 		}
 		else
-			qaAr = null;
+			qaArrayList = null;
 	}
 	
-	public static QA[] getQAArray() {return qaAr;}
+	public static ArrayList<QA> getQAArray() {return qaArrayList;}
 
 	public static boolean fileExists(File f) {
 		return (f != null && f.exists() && f.isFile() && f.canRead() && (f.length() > 2));

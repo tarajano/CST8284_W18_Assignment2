@@ -1,5 +1,7 @@
 package cst8284.triviatime;
 
+import java.util.ArrayList;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +27,7 @@ public class Controls {
 	private static Stage stage;
 	private static int currentQuestion = 0;
 	
-	private static QA[] qaArray;
+	private static ArrayList<QA> qaArrayList = new ArrayList<>();
 	private static BorderPane bp;
 	private static QAPane qaPane;
 	
@@ -145,7 +147,7 @@ public class Controls {
 	}
 	
 	private static void resetAnswersResults() {
-    for( QA qa :  getQAArray() )
+    for( QA qa :  getQAArrayList() )
       qa.setResult(false);
 	}
 	
@@ -172,16 +174,16 @@ public class Controls {
 	}
 	
   private static VBox getNxtQPane() {
-    qaPane = new QAPane(qaArray[ getCurrentQuestionNumber() ]);
+    qaPane = new QAPane(qaArrayList.get(getCurrentQuestionNumber()));
     return qaPane.getQAPane();
   }
 
-  public static QA[] getQAArray() {
-    return qaArray ;
+  public static ArrayList<QA> getQAArrayList() {
+    return qaArrayList ;
   }
   
   // To load QA objects from file
-	private static QA[] getQAArrayFromTriviaFile() {
+	private static ArrayList<QA> getQAArrayFromTriviaFile() {
     FileUtils.setQAArray(getAbsPath(), getNumObjects());
     return FileUtils.getQAArray();
 	}
@@ -189,7 +191,7 @@ public class Controls {
 	private static String getAbsPath() {return absPath;}
 	private static int getNumObjects() {return numObjects;}
   public static int getNumOfQuestions() {return getNumObjects();}
-  private static void setQAArray() {qaArray = getQAArrayFromTriviaFile();}
+  private static void setQAArray() {qaArrayList = getQAArrayFromTriviaFile();}
   public static int getCurrentQuestionNumber() {return currentQuestion;}
   private static int incrementQuestionNumber() {return currentQuestion+=1;}
 

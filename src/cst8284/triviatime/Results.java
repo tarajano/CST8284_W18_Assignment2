@@ -48,7 +48,7 @@ public class Results {
     textSummaryBox = new VBox();
     textSummaryBox.getChildren().add(new Text("Results by question:"));
     
-    for( QA qa : Controls.getQAArray() ) {
+    for( QA qa : Controls.getQAArrayList() ) {
       isCorrect = qa.isCorrect();
       
       if (isCorrect)
@@ -88,7 +88,7 @@ public class Results {
   // Counts correct answers for pie-chart
   private static int getNumCorrectAnswers() {
     int score = 0;
-    for( QA qa : Controls.getQAArray() ) {
+    for( QA qa : Controls.getQAArrayList() ) {
       if (qa.isCorrect())
         score++;
     }
