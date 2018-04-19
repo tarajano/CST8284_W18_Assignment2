@@ -1,6 +1,8 @@
 package cst8284.triviatime;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -51,7 +53,7 @@ public class Controls {
 	// : design a method getMnuFile() that returns a File Menu;
 	// this can then loaded into the MenuBar
 	private static Menu getMnuFile() {
-	  mnu = new Menu("File");
+	  mnu = new Menu("_File");
 	  mnu.getItems().addAll(getMnuItmNewGame(), getMnuItmExit());
 	  return mnu;
 	}
@@ -59,14 +61,60 @@ public class Controls {
 	// : design a method getMnuSettings() that returns a Settings Menu;
 	// This should be disabled to now; we'll use it later on
   private static Menu getMnuSettings() {
-    mnu = new Menu("Settings");
-    mnu.setDisable(true);
+    mnu = new Menu("_Settings");
+    mnu.getItems().addAll(getMnuItmRandomizeQuestions(),
+                          getMnuItmIncreasingDifficulty(),
+                          getMnuItmByTopic()
+                          );
+    mnu.setDisable(false);
     return mnu;
   }
   
-	// : design a method getMnuHelp() that returns a Help Menu
+  private static MenuItem getMnuItmIncreasingDifficulty() {
+    /* From Marco Jakob, code.makery, */
+    /* http://code.makery.ch/blog/javafx-dialogs-official/ */
+    mnuItm = new MenuItem("_Increasing Difficulty");
+    mnuItm.setOnAction((ActionEvent e) -> {
+      Collections.sort(getQAArrayList(), new SortQByIncreasingDifficulty() );
+    });
+    return mnuItm; 
+  }
+  
+  private static class SortQByIncreasingDifficulty implements Comparator<QA>{
+      public int compare(QA o1, QA o2){
+          return o1.getDifficulty() - o2.getDifficulty();
+      }
+  }
+  
+  private static MenuItem getMnuItmByTopic() {
+    /* From Marco Jakob, code.makery, */
+    /* http://code.makery.ch/blog/javafx-dialogs-official/ */
+    mnuItm = new MenuItem("_By Topic");
+    mnuItm.setOnAction((ActionEvent e) -> {
+      Collections.sort(getQAArrayList(), new SortQByTopic() );
+    });
+    return mnuItm; 
+  }
+  
+  private static class SortQByTopic implements Comparator<QA>{
+    public int compare(QA o1, QA o2){
+        return o1.getCategory().compareTo(o1.getCategory());
+    }
+  }
+  
+  private static MenuItem getMnuItmRandomizeQuestions() {
+    /* From Marco Jakob, code.makery, */
+    /* http://code.makery.ch/blog/javafx-dialogs-official/ */
+    mnuItm = new MenuItem("_Randomize Questions");
+    mnuItm.setOnAction((ActionEvent e) -> {
+      Collections.shuffle(getQAArrayList());
+    });
+    return mnuItm; 
+  }
+
+  // : design a method getMnuHelp() that returns a Help Menu
   private static Menu getMnuHelp() {
-    mnu = new Menu("Help");
+    mnu = new Menu("_Help");
     mnu.getItems().addAll(getMnuItmAbout());
     return mnu;	  
 	}
@@ -81,7 +129,7 @@ public class Controls {
   private static MenuItem getMnuItmNewGame() {
     /* From Marco Jakob, code.makery, */
     /* http://code.makery.ch/blog/javafx-dialogs-official/ */
-    mnuItm = new MenuItem("New Game");
+    mnuItm = new MenuItem("_New Game");
     mnuItm.setOnAction((ActionEvent e) -> {
       Stage pStage = getStage(); 
       bp = (BorderPane) pStage.getScene().getRoot();
@@ -97,7 +145,7 @@ public class Controls {
     // TODO Printing works, but I need to figure out
     // how to activate "Print results" ONLY after 
     // results are ready.
-    mnuItm = new MenuItem("Print results");
+    mnuItm = new MenuItem("_Print results");
     mnuItm.setDisable(true);
     mnuItm.setOnAction((ActionEvent e) -> {
       printResults((HBox) bp.getChildren().get(0));
@@ -119,7 +167,7 @@ public class Controls {
   private static MenuItem getMnuItmExit() {
     /* From Marco Jakob, code.makery, */
     /* http://code.makery.ch/blog/javafx-dialogs-official/ */
-    mnuItm = new MenuItem("Exit");
+    mnuItm = new MenuItem("_Exit");
     mnuItm.setOnAction(actionEvent -> Platform.exit());
     return mnuItm;
   }
@@ -127,12 +175,12 @@ public class Controls {
 	private static MenuItem getMnuItmAbout() {
 		/* From Marco Jakob, code.makery, */
 		/* http://code.makery.ch/blog/javafx-dialogs-official/ */
-		mnuItm = new MenuItem("About");
+		mnuItm = new MenuItem("_About");
 		mnuItm.setOnAction((ActionEvent e) -> {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("About");
 			alert.setHeaderText("About Trivia Time");
-			alert.setContentText("Author: Manuel Alonso\nYear: 2018");
+			alert.setContentText("Author: Manuel Alonso\nAlgonquin College, 2018");
 			alert.showAndWait();
 		});
 		return mnuItm;
