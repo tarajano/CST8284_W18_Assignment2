@@ -36,7 +36,7 @@ public class Controls {
 //	private static String fileName = "ComputerTrivia_Java100.trivia";
 //	private static String winFolderPath = "C:/TriviaTime/";
 	private static String unixFolderPath = "/Dropbox/Dropbox/eclipse-workspace/CST8284_W18_Assignment1/src/cst8284/triviatime/triviaQAFiles/";
-	private static String absPath = unixFolderPath; // TODO modify for submission 
+	private static String defaultFolderPath = unixFolderPath; // TODO modify for submission 
   
 	/***************** MenuBar *****************/
  
@@ -133,7 +133,7 @@ public class Controls {
     mnuItm.setOnAction((ActionEvent e) -> {
       Stage pStage = getStage(); 
       bp = (BorderPane) pStage.getScene().getRoot();
-      setQAArrayList(absPath);
+      setQAArrayList(defaultFolderPath);
       resetGame();
       setNxtPane();
     });
@@ -232,13 +232,13 @@ public class Controls {
   }
   
   // To load QA objects from file
-	private static ArrayList<QA> getQAArrayListFromTriviaFile(String path) {
-    FileUtils.setQAArrayList(getStage(), path);
+	private static ArrayList<QA> getQAArrayListFromTriviaFile(String folderPath) {
+    FileUtils.setQAArrayList(folderPath);
     return FileUtils.getQAArray();
 	}
 
   public static int getNumOfQuestions() {return qaArrayList.size();}
-  private static void setQAArrayList(String path) {qaArrayList = getQAArrayListFromTriviaFile(path);}
+  private static void setQAArrayList(String folderPath) {qaArrayList = getQAArrayListFromTriviaFile(folderPath);}
   public static int getCurrentQuestionNumber() {return currentQuestion;}
   private static int incrementQuestionNumber() {return currentQuestion+=1;}
 
